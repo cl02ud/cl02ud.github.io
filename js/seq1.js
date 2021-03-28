@@ -1,47 +1,12 @@
-//create a synth and connect it to the main output (your speakers)
-//const synth = new Tone.Synth().toDestination();
-
-//play a middle 'C' for the duration of an 8th note
-//synth.triggerAttackRelease("C4", "8n");
-
-
-
-//var slider = document.getElementById('s1');
-
-//console.log(slider.value);
-
 let table;
 
 let slider;
-
-let sliderBHS, sliderBLZ, sliderCRI, sliderCUB, sliderDOM, sliderGTM, sliderHND, sliderHTI, sliderJAM, sliderMEX, sliderNIC, sliderPAN, sliderSLV, sliderPRI;
 
 // let doms1;
 
 let mySound;
 
-let sound0, sound1, sound2, sound3, sound4, sound5, sound6, sound7, sound8, sound9, sound10, sound11, sound12, sound13
-
-/////////////////
-
-// var counterString = createVector(0, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
-
-var counterString = [
-  "0", "16", "15", "14", "13", "12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"
-];
-
-let indexC1 = counterString.length;
-let indexC2 = counterString.length;
-
-let counter;
-
-//time in milliseconds to be reached
-let bpm = 20;
-
-let expr = (60000 / bpm) / 4; //transform bpm to ms
-
-let c1 = expr;
-let c2 = expr;
+let sound0, sound1, sound2, sound3
 
 //////////////
 
@@ -51,9 +16,10 @@ function preload() {
   //soundFormats('mp3', 'ogg', 'wav');
   //mySound = loadSound('assets/005-bassIce-G.wav');
 
-  //sound0 = loadSound('assets/osciladores2019-fábrica.mp3');
+  sound0 = loadSound('assets/intro-long2.mp3');
   sound1 = loadSound('assets/chupón-bip.mp3');
   sound2 = loadSound('assets/osciladores2019-fábrica.mp3');
+  sound3 = loadSound('assets/masaje.mp3');
 }
 
 function setup() {
@@ -70,8 +36,11 @@ function setup() {
   //slider.position(100, 180);
   //slider.style('width', '80px');
 
+  sound0.loop();
   sound1.loop();
   sound2.loop();
+  sound3.loop();
+
   sound2.setVolume(0.1);
 }
 
@@ -87,13 +56,24 @@ function draw() {
 
   print(d);
 
+  let mdinv = map(d, 0, 1200, 0, 0.4);
+
   let md = map(d, 0, 1200, 0.3, 0);
 
   let p = map(mouseX, 0, windowWidth, -1, 1);
+
+  let pinv = map(mouseX, 0, windowWidth, 1, -1);
   //let pwinY = map(pwinMouseY, 0, 1200, 0, 0.7);
 
-  sound1.setVolume(md);
+  sound0.setVolume(md - 0.1);
+
+  sound1.setVolume(md - 0.1);
+
   sound2.setVolume(md);
+
+  sound3.setVolume(mdinv + 0.1);
+
+  sound0.pan(pinv);
 
   sound2.pan(p);
 
